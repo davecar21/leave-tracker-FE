@@ -1,0 +1,45 @@
+<div class="leave-header">
+  <h2>Leave Details: </h2>
+  <h3>({{selectedDetails?.date | date:'EEEE, MMMM d, y'}})</h3>
+</div>
+
+<div class="leave-details">
+  <ng-container *ngFor="let leaveDetail of leaveDetails">
+    <ng-container *ngIf="leaveDetail.leaveDate.getTime() == selectedDetails?.date.getTime()">
+      <div class="leave-detailsCont" appLeaveHighlight [hlLeave]="leaveDetail.leaveType">
+        <section>
+          <p>First Name:</p>
+          <p>{{leaveDetail.userID.firstName}}</p>
+        </section>
+        <section>
+          <p>Leave Applied:</p>
+          <p>{{leaveDetail.createdAt | date}}</p>
+        </section>
+        <section>
+          <p>Leave Date:</p>
+          <p>{{leaveDetail.leaveDate | date}}</p>
+        </section>
+        <section>
+          <p>Leave Type:</p>
+          <p>{{initLeaveType(leaveDetail.leaveType)}}</p>
+        </section>
+        <section>
+          <p>Leave Hours:</p>
+          <p>{{leaveDetail.leaveHours}} Hours</p>
+        </section>
+        <section>
+          <p>Leave Notes:</p>
+          <p>{{leaveDetail.leaveNotes}}</p>
+        </section>
+        <section>
+          <p>Return to work:</p>
+          <p>{{leaveDetail.leaveDateReturnWork | date}}</p>
+        </section>
+        <section>
+          <button class="cancel-leave" (click)="removeVL(leaveDetail.firstName, leaveDetail.leaveDate)"
+          *ngIf="leaveDetail.leaveType == 'VL' && leaveDetail.leaveDate.getTime() > currentDate">Cancel VL</button>
+        </section>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

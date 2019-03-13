@@ -1,0 +1,30 @@
+<h2>Leave Form:</h2>
+<form [formGroup]="leaveForm" (ngSubmit)="submitLeave()">
+    <label for="firstName">First Name: </label>
+    <input type="text" formControlName="firstName" maxlength="8">
+
+  <label for="leaveApplied">Leave Applied: </label>
+  <input type="date" formControlName="leaveApplied">
+
+  <label for="leaveDate">Leave Date: </label>
+  <input type="date" formControlName="leaveDate">
+
+  <label for="leaveType">Leave Type: </label>
+  <select formControlName="leaveType" >
+    <option *ngFor="let leaveType of leaveTypes" [value]="leaveType.value">{{leaveType.viewValue}}</option>
+  </select>
+
+  <label for="leaveHours">Leave Hours: </label>
+  <select formControlName="leaveHours">
+    <option value="4">4 Hours</option>
+    <option value="8">8 Hours</option>
+  </select>
+
+  <label for="leaveNotes">Leave Notes: </label>
+  <input type="text" formControlName="leaveNotes" maxlength="100">
+
+  <label for="leaveDateReturnWork">Return to work: </label>
+  <input type="date" formControlName="leaveDateReturnWork">
+
+  <input class="btn-submit" type="submit" value="SUBMIT">
+</form>

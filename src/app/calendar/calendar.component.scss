@@ -1,0 +1,164 @@
+.calendar {
+  width: 100%;
+  min-width: 650px;
+  height: 100%;
+  background: #2c3e50;
+  color: white;
+  border: #7f8c8d 2px solid;
+
+  &-header {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+  }
+
+  &-headerTitle {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-headerDate {
+    div {
+      margin: 0px 5px;
+    }
+
+    padding: 0 5px;
+  }
+
+  &-headerNav {
+    div {
+      cursor: pointer;
+      margin: 0px 5px;
+    }
+
+    padding: 0px 5px;
+  }
+
+  &-headerNavUp {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #3498db;
+    transition: all ease 500ms;
+  }
+
+  &-headerNavUp:hover {
+    border-bottom: 15px solid #2980b9;
+  }
+
+  &-headerNavDown {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #3498db;
+    transition: all ease 500ms;
+  }
+
+  &-headerNavDown:hover {
+    border-top: 15px solid #2980b9;
+  }
+
+  &-headerDay {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: #34495e;
+    font-weight: bold;
+    padding: 10px 0;
+  }
+
+  &-headerDayList {
+    text-align: center;
+    width: calc(100% / 7);
+  }
+
+  &-body {
+    width: 100%;
+    height: calc(100% - 83.33px);
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: center;
+    cursor: pointer;
+
+    >div {
+      box-sizing: border-box;
+      width: calc(100% / 7);
+      height: calc(100% / 6);
+      box-sizing: border-box;
+      padding: 5px 0px;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+  }
+
+  &-bodyCurrent {
+    border: solid transparent 1px;
+    overflow: hidden;
+
+    >div {
+      padding: 0px 2px
+    }
+  }
+
+  &-bodyCurrent:hover {
+    border: solid #3498db 1px;
+    // overflow: auto;
+  }
+
+  &-bodyCurrent.calendar-bodyCurrentDay:hover {
+    border: solid #ecf0f1 1px;
+  }
+
+  &-bodyLeave {
+    background: #34495e
+  }
+
+  &-bodyCurrentDay {
+    overflow: hidden;
+    background: #3498db;
+
+    .calendar-bodyDay {
+      font-weight: bold;
+    }
+  }
+
+  &-bodyPrev {
+    color: #7f8c8d;
+    background: #2c3e50
+  }
+
+  &-bodyNext {
+    color: #7f8c8d;
+    background: #2c3e50
+  }
+
+  &-leaveList {
+    height: 100%;
+    width: 100%;
+
+    >div {
+      display: block;
+    }
+  }
+
+  &-leaveList:hover{
+    overflow: auto;
+  }
+
+  &-leaveListCont {
+    background: gray;
+    border-top: #2c3e50 solid 1px;
+  }
+
+}

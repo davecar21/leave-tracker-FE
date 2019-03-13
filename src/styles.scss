@@ -1,1 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+div {
+  display: inline-block
+}
+
+p{
+  display: inline-block;
+  margin: 0;
+}
+
+form{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+label, input, select{
+  margin: 5px 0px;
+  display: inline-block;
+}
+
+label{
+  width: 40%;
+}
+
+input, select{
+  width: 60%;
+  padding: 5px;
+  border-radius: 5px;
+  border: #7f8c8d solid 1px;
+  cursor: pointer;
+  transition: all ease 1s;
+}
+
+input:hover, select:hover{
+  border: #2980b9 solid 1px;
+}
+
+app-root{
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+
+
+
+
+.btn-submit{
+  background: #2980b9;
+  border: #3498db solid 1px;
+  width: 100%;
+  color: #ecf0f1;
+  font-weight: bold;
+}
+
+
+
+
+@media screen and (max-width: 750px){
+  app-root{
+    flex-flow: column nowrap;
+  }
+}

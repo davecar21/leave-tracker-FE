@@ -1,0 +1,13 @@
+<div class="app-login">
+  <h2>Login Form:</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+    <label for="employeeID">Employee ID: </label>
+    <input type="text" formControlName="employeeID" maxlength="8">
+
+    <label for="password">Password: </label>
+    <input type="password" formControlName="password" maxlength="8">
+
+    <input class="btn-submit" type="submit" value="LOGIN">
+  </form>
+
+</div>

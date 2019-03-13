@@ -1,0 +1,37 @@
+.leave {
+  &-header {
+    height: 110px;
+  }
+
+  &-details {
+    // height: calc(100% - 110px);
+    width: 100%;
+    overflow: auto;
+    color: white;
+  }
+
+  &-detailsCont {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-bottom: 15px;
+    padding: 5px;
+
+    section {
+      padding: 1px 0px;
+    }
+
+    p:first-child {
+      width: 150px;
+    }
+  }
+}
+
+.cancel-leave{
+  border: 0;
+  padding: 5px 10px;
+  background: #c0392b;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 5px 0px;
+}

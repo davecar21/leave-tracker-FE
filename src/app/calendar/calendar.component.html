@@ -1,0 +1,36 @@
+<div class="calendar">
+  <div class="calendar-header">
+    <div class="calendar-headerTitle">
+      <div class="calendar-headerDate">
+        <div class="calendar-headerMonth">{{ currentMonthName }}</div>
+        <div class="calendar-headerYear" contenteditable="">{{ initYear }}</div>
+      </div>
+      <div class="calendar-headerNav">
+        <div class="calendar-headerNavUp" (click)="initDate('prev')"></div>
+        <div class="calendar-headerNavDown" (click)="initDate('next')"></div>
+      </div>
+    </div>
+    <div class="calendar-headerDay">
+      <div *ngFor="let weekday of weekdays" class="calendar-headerDayList">{{weekday}}</div>
+    </div>
+  </div>
+  <div class="calendar-body">
+    <div *ngFor="let prevDay of prevDays" class="calendar-bodyPrev">{{prevDay}}</div>
+    <div *ngFor="let currDay of currDays" class="calendar-bodyCurrent" [ngClass]="{
+      'calendar-bodyCurrentDay': currDay.day == initCurrentDay && currDay.month == currentMonth && currDay.year == currentYear}"
+      (click)="showDayDetails(currDay)">
+      <div class="calendar-bodyDay">{{currDay.day}}</div>
+      <div class="calendar-leaveList">
+        <ng-container *ngFor="let leaveDetail of leaveDetails">
+          <ng-container *ngIf="leaveDetail.leaveDate.getTime() == currDay.date.getTime()">
+            <div class="calendar-leaveListCont" appLeaveHighlight [hlLeave]="leaveDetail.leaveType">
+              {{initLeaveType(leaveDetail.leaveType)}} - {{leaveDetail.userID.firstName}}
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+
+    </div>
+    <div *ngFor="let nextDay of nextDays" class="calendar-bodyNext">{{nextDay}}</div>
+  </div>
+</div>
