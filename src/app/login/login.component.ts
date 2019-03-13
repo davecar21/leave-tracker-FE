@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       result => {
         let data:any = result;
         localStorage.setItem('token', data.token);
-        this.router.navigate(['/leave']);
+        this.router.navigate(['/leave-form']);
 
       },
       error => {
