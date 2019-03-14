@@ -34,20 +34,23 @@ export class AuthGuardService {
         },
         error => {
           console.warn('Auth Failed!', error);
-          localStorage.removeItem('token');
-          this.router.navigate(['/login']);
+          this.redirectToLogin();
           return false;
         }
       )
     } else {
-      console.warn('Auth Failed!');
-      localStorage.removeItem('token');
-      this.router.navigate(['/login']);
+      console.warn('Invalid Token!');
+      this.redirectToLogin();
     }
   }
 
   isAuth() {
     return true
+  }
+
+  redirectToLogin() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 
 
