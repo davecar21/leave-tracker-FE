@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-leave-form',
@@ -9,16 +10,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LeaveFormComponent implements OnInit {
   @Output() submitLeaveForm = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
   leaveTypes = [
-    { value: 1, viewValue: "Sick Leave" },
-    { value: 2, viewValue: "Vacation Leave" },
-    { value: 3, viewValue: "Emergency Leave" },
-  ]
+    { value: 1, viewValue: 'Sick Leave' },
+    { value: 2, viewValue: 'Vacation Leave' },
+    { value: 3, viewValue: 'Emergency Leave' },
+  ];
 
   leaveForm = new FormGroup({
     firstName: new FormControl('',
@@ -31,15 +27,25 @@ export class LeaveFormComponent implements OnInit {
     leaveDateReturnWork: new FormControl(''),
   });
 
+  constructor() { }
+
+  ngOnInit() {
+  }
+
   formatDate(date) {
-    return new Date(date);
+    let initDate = moment(date).toDate();
+    initDate.setHours(0);
+    initDate.setMinutes(0);
+    initDate.setSeconds(0);
+    initDate.setMilliseconds(0);
+    return initDate;
   }
 
   submitLeave() {
     this.leaveForm.value.leaveDate = this.formatDate(this.leaveForm.value.leaveDate);
-    this.submitLeaveForm.emit(this.leaveForm.value)
+    this.submitLeaveForm.emit(this.leaveForm.value);
     console.log('submitLeave', this.leaveForm.value);
-    this.leaveForm.reset()
+    this.leaveForm.reset();
   }
 
 }

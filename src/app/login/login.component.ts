@@ -10,20 +10,20 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router) { }
-
-  ngOnInit() {
-  }
-
   loginForm = new FormGroup({
     employeeID: new FormControl(''),
     password: new FormControl(''),
   });
 
+  constructor(private auth: AuthService, private router: Router) { }
+
+  ngOnInit() {
+  }
+
   submitLogin() {
     this.auth.login(this.loginForm.value).subscribe(
       result => {
-        let data:any = result;
+        const data: any = result;
         localStorage.setItem('token', data.token);
         this.router.navigate(['/leave-form']);
 

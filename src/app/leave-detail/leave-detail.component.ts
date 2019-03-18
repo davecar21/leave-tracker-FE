@@ -8,13 +8,17 @@ import { LeaveService } from '../shared/leave.service';
 })
 export class LeaveDetailComponent implements OnInit {
 
-  // @Input() leaveDetails;
-  @Input() selectedDetails;
-  @Output() cancelVL = new EventEmitter();
-
   leaveDetails;
 
-  currentDate = new Date().getTime();
+  date = new Date();
+  currentYear = this.date.getFullYear();
+  currentMonth = this.date.getMonth();
+  currentDay = this.date.getDate();
+  dateNow = new Date(this.currentYear, this.currentMonth, this.currentDay, 0, 0, 0);
+
+  // @Input() leaveDetails;
+  @Input() selectedDetails = this.dateNow.getTime();
+  @Output() cancelVL = new EventEmitter();
 
   constructor(private leaveService: LeaveService) {
     this.leaveService.getLeave().subscribe(result => {
@@ -22,24 +26,30 @@ export class LeaveDetailComponent implements OnInit {
       this.leaveDetails.forEach(data => {
         data.leaveDate = new Date(data.leaveDate);
         data.createdAt = new Date(data.createdAt);
-      })
-      console.log('from leave Details', this.leaveDetails)
-    })
+      });
+
+      // this.leaveDetails = leaves.filter(data => {
+      //   return data.leaveDate.getTime() === this.dateNow.getTime();
+      // });
+
+      console.log('from leave Details', this.leaveDetails);
+      console.log('from leave this.currentDate', this.dateNow);
+    });
   }
 
   ngOnInit() {
-    console.log('sel', this.selectedDetails)
+    console.log('sel', this.selectedDetails);
   }
 
   initLeaveType(type) {
     if (type == 'SL') {
-      return 'Sick Leave'
+      return 'Sick Leave';
     }
     if (type == 'VL') {
-      return 'Vacation Leave'
+      return 'Vacation Leave';
     }
     if (type == 'EL') {
-      return 'Emergency Leave'
+      return 'Emergency Leave';
     }
   }
 

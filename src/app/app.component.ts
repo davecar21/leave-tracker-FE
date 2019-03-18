@@ -10,9 +10,9 @@ export class AppComponent {
   initYear = this.date.getFullYear(); // year
   initMonth = this.date.getMonth(); // month
   initCurrentDay = this.date.getDate(); // day
-  
+
   selectedData = {
-    date: new Date(this.initYear, this.initMonth, this.initCurrentDay, 8)
+    date: new Date(this.initYear, this.initMonth, this.initCurrentDay, 0, 0, 0)
   };
 
   leaveData = [
@@ -93,7 +93,7 @@ export class AppComponent {
 
   getDayDetail(dayDetail) {
     this.selectedData = dayDetail;
-    
+
   }
 
   newLeave(newLeaveData) {
@@ -101,8 +101,8 @@ export class AppComponent {
   }
 
 
-  removeVL(data){
-    let index = this.leaveData.findIndex((leave)=>{
+  removeVL(data) {
+    let index = this.leaveData.findIndex((leave) => {
       return leave.firstName == data.firstName && leave.leaveDate.getTime() == data.leaveDate.getTime()
     })
     this.leaveData.splice(index, 1);

@@ -16,7 +16,7 @@ import { AuthGuard } from './shared/auth.guard';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent},
   { path: 'leave-form', component: LeaveFormComponent, canActivate: [AuthGuard] },
   // {
   //   path: 'heroes',

@@ -14,7 +14,7 @@ export class CalendarComponent implements OnInit {
   currentYear = this.date.getFullYear();
   currentMonth = this.date.getMonth();
   currentDay = this.date.getDate();
-  dateNow = new Date(this.currentYear, this.currentMonth, this.currentDay, 0, 0, 0)
+  dateNow = new Date(this.currentYear, this.currentMonth, this.currentDay, 0, 0, 0);
 
 
   initYear = this.date.getFullYear(); // year
@@ -22,12 +22,12 @@ export class CalendarComponent implements OnInit {
   initDay = new Date(this.date.getFullYear(), this.initMonth + 1, 0).getDate(); // # of days
   initCurrentDay = this.date.getDate();
 
-  //Weekday
+  // Weekday
   weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   // MONTH
-  monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+  monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
   ];
   currentMonthName = this.monthNames[this.initMonth];
 
@@ -44,8 +44,8 @@ export class CalendarComponent implements OnInit {
     this.initDays();
     this.leaveService.getLeave().subscribe(result => {
       this.leaveDetails = result;
-      this.leaveDetails.forEach(data => data.leaveDate = new Date(data.leaveDate))
-    })
+      this.leaveDetails.forEach(data => data.leaveDate = new Date(data.leaveDate));
+    });
   }
 
   initDays() {
@@ -56,24 +56,24 @@ export class CalendarComponent implements OnInit {
     let lastDays = new Date(this.initYear, this.initMonth, 0).getDate() - this.monthFirstDayWeekName;
     for (let i = 0; i < this.monthFirstDayWeekName; i++) {
       lastDays += 1;
-      console.log(lastDays)
-      this.prevDays.push(lastDays)
+      console.log(lastDays);
+      this.prevDays.push(lastDays);
     }
 
     for (let i = 0; i < this.initDay; i++) {
-      let dateObject = {
+      const dateObject = {
         month: this.initMonth,
         day: i + 1,
         year: this.initYear,
         date: new Date(this.initYear, this.initMonth, i + 1),
         // date: new Date(this.initYear, this.initMonth, i + 1, 8, 0, 0),
-      }
+      };
       this.currDays.push(dateObject);
     }
 
-    let nxtDay = 42 - (this.monthFirstDayWeekName + this.initDay);
+    const nxtDay = 42 - (this.monthFirstDayWeekName + this.initDay);
     for (let i = 0; i < nxtDay; i++) {
-      this.nextDays.push(i + 1)
+      this.nextDays.push(i + 1);
     }
   }
 
@@ -96,24 +96,24 @@ export class CalendarComponent implements OnInit {
 
     this.initDay = new Date(this.initYear, this.initMonth + 1, 0).getDate();
     this.monthFirstDayWeekName = new Date(this.initYear, this.initMonth, 1).getDay();
-    this.initDays()
+    this.initDays();
     this.currentMonthName = this.monthNames[this.initMonth];
   }
 
 
   showDayDetails(dayDetails) {
-    this.currentDayDetail.emit(dayDetails)
+    this.currentDayDetail.emit(dayDetails);
   }
 
   initLeaveType(type) {
     if (type == 'SL') {
-      return 'SL'
+      return 'SL';
     }
     if (type == 'VL') {
-      return 'VL'
+      return 'VL';
     }
     if (type == 'EL') {
-      return 'EL'
+      return 'EL';
     }
   }
 

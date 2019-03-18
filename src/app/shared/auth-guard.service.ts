@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { TokenService } from './token.service';
@@ -15,44 +15,23 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthGuardService {
-  apiURL = 'http://localhost:3000';
-
-  isValid;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private token: TokenService
   ) {
-    console.log('TOKEN', this.token.decodeJWT(localStorage.getItem('token')))
-    if (localStorage.getItem('token') && this.token.decodeJWT(localStorage.getItem('token'))) {
-      this.http.get(this.apiURL, httpOptions).subscribe(
-        result => {
-          this.router.navigate(['/leave-form']);
-          console.log('res', result)
-          return true;
-        },
-        error => {
-          console.warn('Auth Failed!', error);
-          this.redirectToLogin();
-          return false;
-        }
-      )
-    } else {
-      console.warn('Invalid Token!');
-      this.redirectToLogin();
-    }
+
   }
 
   isAuth() {
-    return true
+    if (localStorage.getItem('token') && this.token.decodeJWT(localStorage.getItem('token'))) {
+      console.log('auth true');
+      console.log('TOKEN', this.token.decodeJWT(localStorage.getItem('token')));
+      return true;
+    }
+    console.log('auth false');
+    return false;
   }
-
-  redirectToLogin() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
-  }
-
-
 
 }
