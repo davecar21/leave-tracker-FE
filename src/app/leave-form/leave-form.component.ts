@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import * as moment from 'moment';
+import { TokenService } from '@AUTH/token.service';
+import { LeaveService } from '@SHARED/leave.service';
 
 @Component({
   selector: 'app-leave-form',
@@ -11,14 +12,12 @@ export class LeaveFormComponent implements OnInit {
   @Output() submitLeaveForm = new EventEmitter();
 
   leaveTypes = [
-    { value: 1, viewValue: 'Sick Leave' },
-    { value: 2, viewValue: 'Vacation Leave' },
-    { value: 3, viewValue: 'Emergency Leave' },
+    { value: 'SL', viewValue: 'Sick Leave' },
+    { value: 'VL', viewValue: 'Vacation Leave' },
+    { value: 'EL', viewValue: 'Emergency Leave' },
   ];
 
   leaveForm = new FormGroup({
-    firstName: new FormControl('',
-      [Validators.maxLength(8)]),
     leaveApplied: new FormControl(''),
     leaveDate: new FormControl(''),
     leaveType: new FormControl(''),
@@ -27,25 +26,34 @@ export class LeaveFormComponent implements OnInit {
     leaveDateReturnWork: new FormControl(''),
   });
 
-  constructor() { }
+  constructor(
+    private tokenService: TokenService,
+    private leaveService: LeaveService
+  ) { }
 
   ngOnInit() {
   }
 
-  formatDate(date) {
-    let initDate = moment(date).toDate();
-    initDate.setHours(0);
-    initDate.setMinutes(0);
-    initDate.setSeconds(0);
-    initDate.setMilliseconds(0);
-    return initDate;
-  }
-
   submitLeave() {
-    this.leaveForm.value.leaveDate = this.formatDate(this.leaveForm.value.leaveDate);
-    this.submitLeaveForm.emit(this.leaveForm.value);
-    console.log('submitLeave', this.leaveForm.value);
-    this.leaveForm.reset();
+    const token = this.tokenService.decodeJWT(localStorage.getItem('token'));
+    const formValue = this.leaveForm.value;
+
+    formValue.userID = token._id;
+
+    this.submitLeaveForm.emit(formValue);
+
+    this.leaveService.postLeave(formValue).subscribe(
+      result => {
+        console.log('submit Leave Form SUCESS', result);
+      },
+      error => {
+        console.log('submit Leave Form FAIL', error);
+      }
+    )
+
+
+    console.log('submitLeave', formValue);
+    // this.leaveForm.reset();
   }
 
 }

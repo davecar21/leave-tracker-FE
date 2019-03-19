@@ -1,5 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { LeaveService } from '../shared/leave.service';
+
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -44,8 +47,16 @@ export class CalendarComponent implements OnInit {
     this.initDays();
     this.leaveService.getLeave().subscribe(result => {
       this.leaveDetails = result;
-      this.leaveDetails.forEach(data => data.leaveDate = new Date(data.leaveDate));
     });
+  }
+
+  formatDate(date) {
+    const initDate = moment(date).toDate();
+    initDate.setHours(0);
+    initDate.setMinutes(0);
+    initDate.setSeconds(0);
+    initDate.setMilliseconds(0);
+    return initDate;
   }
 
   initDays() {

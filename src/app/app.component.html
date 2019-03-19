@@ -1,9 +1,12 @@
 <!-- <app-calendar (currentDayDetail)="getDayDetail($event)" [leaveDetails]="leaveData"></app-calendar> -->
 
-<app-calendar (currentDayDetail)="getDayDetail($event)"></app-calendar>
+<div class="content">
+  <app-calendar (currentDayDetail)="getDayDetail($event)"></app-calendar>
 
-<div class="leave-container">
-  <router-outlet></router-outlet>
-  <!-- <app-leave-form (submitLeaveForm)="newLeave($event)"></app-leave-form> -->
-  <app-leave-detail [selectedDetails]="selectedData" (cancelVL)="removeVL($event)"></app-leave-detail>
+  <div class="leave-container">
+    <app-nav-bar></app-nav-bar>
+    <router-outlet></router-outlet>
+    <!-- <app-leave-form (submitLeaveForm)="newLeave($event)"></app-leave-form> -->
+    <app-leave-detail [selectedDetails]="selectedData" (cancelVL)="removeVL($event)"></app-leave-detail>
+  </div>
 </div>

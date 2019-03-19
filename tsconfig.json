@@ -3,6 +3,10 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "paths": {
+      "@AUTH/*": ["src/app/shared/services/auth/*"],
+      "@SHARED/*": ["src/app/shared/*"]
+    },
     "sourceMap": true,
     "declaration": false,
     "module": "es2015",

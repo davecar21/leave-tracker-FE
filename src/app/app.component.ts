@@ -88,7 +88,7 @@ export class AppComponent {
       leaveNotes: 'Vacation Leave',
       leaveDateReturnWork: '03/31/2019'
     },
-  ]
+  ];
 
 
   getDayDetail(dayDetail) {
@@ -97,14 +97,14 @@ export class AppComponent {
   }
 
   newLeave(newLeaveData) {
-    this.leaveData.push(newLeaveData)
+    this.leaveData.push(newLeaveData);
   }
 
 
   removeVL(data) {
-    let index = this.leaveData.findIndex((leave) => {
-      return leave.firstName == data.firstName && leave.leaveDate.getTime() == data.leaveDate.getTime()
-    })
+    const index = this.leaveData.findIndex((leave) => {
+      return leave.firstName === data.firstName && leave.leaveDate.getTime() === data.leaveDate.getTime();
+    });
     this.leaveData.splice(index, 1);
   }
 }

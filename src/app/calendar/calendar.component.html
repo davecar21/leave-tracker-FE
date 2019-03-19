@@ -22,7 +22,7 @@
       <div class="calendar-bodyDay">{{currDay.day}}</div>
       <div class="calendar-leaveList">
         <ng-container *ngFor="let leaveDetail of leaveDetails">
-          <ng-container *ngIf="leaveDetail.leaveDate.getTime() == currDay.date.getTime()">
+          <ng-container *ngIf="formatDate(leaveDetail.leaveDate).getTime() == currDay.date.getTime()">
             <div class="calendar-leaveListCont" appLeaveHighlight [hlLeave]="leaveDetail.leaveType">
               {{initLeaveType(leaveDetail.leaveType)}} - {{leaveDetail.userID.firstName}}
             </div>

@@ -12,8 +12,9 @@ export class TokenService {
     try {
       return jwt_decode(token);
     } catch (error) {
-      console.log('jwt-decode ERROR:', error)
+      console.log('jwt-decode ERROR:', error);
       return null;
     }
   }
+
 }

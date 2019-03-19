@@ -3,7 +3,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  padding: 0;
+  padding: 5px;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -49,12 +49,6 @@ input:hover, select:hover{
   border: #2980b9 solid 1px;
 }
 
-app-root{
-  display: flex;
-  height: 100%;
-  width: 100%;
-}
-
 
 
 
@@ -65,13 +59,4 @@ app-root{
   width: 100%;
   color: #ecf0f1;
   font-weight: bold;
-}
-
-
-
-
-@media screen and (max-width: 750px){
-  app-root{
-    flex-flow: column nowrap;
-  }
 }

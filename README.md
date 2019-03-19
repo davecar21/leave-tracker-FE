@@ -27,5 +27,8 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## TODO
+= fix leave detail when clicked show data
 = when teammember is login. filter out all of its own leave.
-= fix leave form
+
+## DONE
+= fix leave form  [WORKING]

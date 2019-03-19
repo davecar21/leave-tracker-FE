@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../shared/auth.service';
+import { AuthService } from '../shared/services/auth/auth.service';
 import { Router } from '@angular/router';
+
+import { AuthGuardService } from '../shared/services/auth/auth-guard.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -15,7 +19,14 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private authGuard: AuthGuardService) {
+    if (this.authGuard) {
+      this.router.navigate(['/leave-form']);
+    }
+  }
 
   ngOnInit() {
   }
@@ -29,10 +40,10 @@ export class LoginComponent implements OnInit {
 
       },
       error => {
-        console.log(error)
+        console.log(error);
         localStorage.removeItem('token');
       }
-    )
+    );
   }
 
 }

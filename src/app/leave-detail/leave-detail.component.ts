@@ -33,7 +33,7 @@ export class LeaveDetailComponent implements OnInit {
       // });
 
       console.log('from leave Details', this.leaveDetails);
-      console.log('from leave this.currentDate', this.dateNow);
+      // console.log('from leave this.currentDate', this.dateNow);
     });
   }
 
