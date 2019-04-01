@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
       },
       error => {
-        console.log(error);
+        console.log('login',error);
         localStorage.removeItem('token');
       }
     );

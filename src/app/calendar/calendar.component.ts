@@ -1,12 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { LeaveService } from '../shared/leave.service';
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { LeaveService } from "../shared/leave.service";
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  selector: "app-calendar",
+  templateUrl: "./calendar.component.html",
+  styleUrls: ["./calendar.component.scss"]
 })
 export class CalendarComponent implements OnInit {
   // @Input() leaveDetails;
@@ -17,8 +17,14 @@ export class CalendarComponent implements OnInit {
   currentYear = this.date.getFullYear();
   currentMonth = this.date.getMonth();
   currentDay = this.date.getDate();
-  dateNow = new Date(this.currentYear, this.currentMonth, this.currentDay, 0, 0, 0);
-
+  dateNow = new Date(
+    this.currentYear,
+    this.currentMonth,
+    this.currentDay,
+    0,
+    0,
+    0
+  );
 
   initYear = this.date.getFullYear(); // year
   initMonth = this.date.getMonth(); // month
@@ -26,28 +32,51 @@ export class CalendarComponent implements OnInit {
   initCurrentDay = this.date.getDate();
 
   // Weekday
-  weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
 
   // MONTH
-  monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+  monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
   ];
   currentMonthName = this.monthNames[this.initMonth];
 
   // Calc Day
   monthFirstDayWeekName = new Date(this.initYear, this.initMonth, 1).getDay();
   prevDays = [];
-  currDays: any = [{
-  }];
+  currDays: any = [{}];
   nextDays = [];
 
-  constructor(private leaveService: LeaveService) { }
+  constructor(private leaveService: LeaveService) {}
 
   ngOnInit() {
     this.initDays();
-    this.leaveService.getLeave().subscribe(result => {
+    this.leaveService.getLeave().subscribe(
+      result => {
       this.leaveDetails = result;
-    });
+    },
+    error => {
+      console.error('GetLeave:',error);
+    }
+    );
   }
 
   formatDate(date) {
@@ -64,7 +93,9 @@ export class CalendarComponent implements OnInit {
     this.currDays = [];
     this.nextDays = [];
 
-    let lastDays = new Date(this.initYear, this.initMonth, 0).getDate() - this.monthFirstDayWeekName;
+    let lastDays =
+      new Date(this.initYear, this.initMonth, 0).getDate() -
+      this.monthFirstDayWeekName;
     for (let i = 0; i < this.monthFirstDayWeekName; i++) {
       lastDays += 1;
       console.log(lastDays);
@@ -76,7 +107,7 @@ export class CalendarComponent implements OnInit {
         month: this.initMonth,
         day: i + 1,
         year: this.initYear,
-        date: new Date(this.initYear, this.initMonth, i + 1),
+        date: new Date(this.initYear, this.initMonth, i + 1)
         // date: new Date(this.initYear, this.initMonth, i + 1, 8, 0, 0),
       };
       this.currDays.push(dateObject);
@@ -89,15 +120,14 @@ export class CalendarComponent implements OnInit {
   }
 
   initDate(direction) {
-
-    if (direction == 'next') {
+    if (direction == "next") {
       this.initMonth += 1;
       if (this.initMonth == 12) {
         this.initMonth = 0;
         this.initYear += 1;
       }
     }
-    if (direction == 'prev') {
+    if (direction == "prev") {
       this.initMonth -= 1;
       if (this.initMonth == -1) {
         this.initMonth = 11;
@@ -106,26 +136,28 @@ export class CalendarComponent implements OnInit {
     }
 
     this.initDay = new Date(this.initYear, this.initMonth + 1, 0).getDate();
-    this.monthFirstDayWeekName = new Date(this.initYear, this.initMonth, 1).getDay();
+    this.monthFirstDayWeekName = new Date(
+      this.initYear,
+      this.initMonth,
+      1
+    ).getDay();
     this.initDays();
     this.currentMonthName = this.monthNames[this.initMonth];
   }
-
 
   showDayDetails(dayDetails) {
     this.currentDayDetail.emit(dayDetails);
   }
 
   initLeaveType(type) {
-    if (type == 'SL') {
-      return 'SL';
+    if (type == "SL") {
+      return "SL";
     }
-    if (type == 'VL') {
-      return 'VL';
+    if (type == "VL") {
+      return "VL";
     }
-    if (type == 'EL') {
-      return 'EL';
+    if (type == "EL") {
+      return "EL";
     }
   }
-
 }

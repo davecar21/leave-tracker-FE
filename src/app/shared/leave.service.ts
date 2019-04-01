@@ -1,30 +1,35 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment as ENV } from "@ENV";
+import { TokenService } from "@AUTH/token.service";
+import { map } from "rxjs/operators";
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    // tslint:disable-next-line: object-literal-key-quotes
-    'Authorization': localStorage.getItem('token')
-  })
-};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class LeaveService {
+  leaveURL = ENV.apiLink + "/leave";
 
-  leaveURL = 'http://localhost:3000/leave';
+  token = this.tokenService.decodeJWT(localStorage.getItem("token"));
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   getLeave() {
-    return this.http.get(this.leaveURL);
+    return this.http.get<any>(this.leaveURL).pipe(
+      map((data,i) => {
+        data.forEach(x => {
+          x.leaveDate = new Date(x.leaveDate);
+          x.createdAt = new Date(x.createdAt);
+          x.leaveDateReturnWork = new Date(x.leaveDateReturnWork);
+        });
+        return data;
+      })
+    );
   }
 
   postLeave(data) {
-    return this.http.post(this.leaveURL, data, httpOptions);
+    console.log("submitLeave", data);
+    return this.http.post(this.leaveURL, data);
   }
 }

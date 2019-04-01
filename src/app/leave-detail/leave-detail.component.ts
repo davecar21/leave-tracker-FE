@@ -23,10 +23,10 @@ export class LeaveDetailComponent implements OnInit {
   constructor(private leaveService: LeaveService) {
     this.leaveService.getLeave().subscribe(result => {
       this.leaveDetails = result;
-      this.leaveDetails.forEach(data => {
-        data.leaveDate = new Date(data.leaveDate);
-        data.createdAt = new Date(data.createdAt);
-      });
+      // this.leaveDetails.forEach(data => {
+      //   data.leaveDate = new Date(data.leaveDate);
+      //   data.createdAt = new Date(data.createdAt);
+      // });
 
       // this.leaveDetails = leaves.filter(data => {
       //   return data.leaveDate.getTime() === this.dateNow.getTime();

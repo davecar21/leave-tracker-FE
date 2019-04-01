@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+import { InterceptorService } from '@SHARED/services/interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { CalendarComponent } from './calendar/calendar.component';
 import { LeaveFormComponent } from './leave-form/leave-form.component';
 import { LeaveDetailComponent } from './leave-detail/leave-detail.component';
@@ -52,7 +55,13 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

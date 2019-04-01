@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment as ENV } from "@ENV";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,13 +14,13 @@ const httpOptions = {
 
 export class AuthService {
 
-  loginURL = 'http://localhost:3000/auth';
+  loginURL = ENV.apiLink+'/auth';
 
   constructor(
     private http: HttpClient
   ) { }
 
   login(data) {
-    return this.http.post(this.loginURL, data, httpOptions);
+    return this.http.post(this.loginURL, data);
   }
 }

@@ -56,6 +56,22 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
             }
           }
         },
@@ -67,6 +83,12 @@
           "configurations": {
             "production": {
               "browserTarget": "pccw-traning:build:production"
+            },
+            "dev": {
+              "browserTarget": "pccw-traning:build:dev"
+            },
+            "staging": {
+              "browserTarget": "pccw-traning:build:staging"
             }
           }
         },
