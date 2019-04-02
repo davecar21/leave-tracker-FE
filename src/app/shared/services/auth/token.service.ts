@@ -8,6 +8,10 @@ export class TokenService {
 
   constructor() { }
 
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   decodeJWT(token: string): any {
     try {
       return jwt_decode(token);

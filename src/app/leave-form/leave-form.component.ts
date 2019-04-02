@@ -40,7 +40,7 @@ export class LeaveFormComponent implements OnInit {
 
     this.leaveService.postLeave(formValue).subscribe(
       result => {
-        console.log("submit Leave Form SUCESS", result);
+        console.log("submit Leave Form SUCCESS", result);
       },
       error => {
         console.log("submit Leave Form FAIL", error);
