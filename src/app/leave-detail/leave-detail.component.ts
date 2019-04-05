@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { LeaveService } from '../shared/leave.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { LeaveService } from '../shared/leave.service';
   templateUrl: './leave-detail.component.html',
   styleUrls: ['./leave-detail.component.scss']
 })
-export class LeaveDetailComponent implements OnInit {
+export class LeaveDetailComponent implements OnInit, OnChanges {
 
   leaveDetails;
 
@@ -17,10 +17,17 @@ export class LeaveDetailComponent implements OnInit {
   dateNow = new Date(this.currentYear, this.currentMonth, this.currentDay, 0, 0, 0);
 
   // @Input() leaveDetails;
-  @Input() selectedDetails = this.dateNow.getTime();
+  @Input() selectedDetails;
   @Output() cancelVL = new EventEmitter();
 
   constructor(private leaveService: LeaveService) {
+  }
+
+  ngOnChanges() {
+    console.log('OnChanges', this.selectedDetails)
+  }
+
+  ngOnInit() {
     this.leaveService.getLeave().subscribe(result => {
       this.leaveDetails = result;
       // this.leaveDetails.forEach(data => {
@@ -35,9 +42,6 @@ export class LeaveDetailComponent implements OnInit {
       console.log('from leave Details', this.leaveDetails);
       // console.log('from leave this.currentDate', this.dateNow);
     });
-  }
-
-  ngOnInit() {
     console.log('sel', this.selectedDetails);
   }
 

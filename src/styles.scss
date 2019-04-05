@@ -36,6 +36,10 @@ label{
   width: 40%;
 }
 
+button{
+  cursor: pointer;
+}
+
 input, select{
   width: 60%;
   padding: 5px;
@@ -57,6 +61,13 @@ input:hover, select:hover{
   background: #2980b9;
   border: #3498db solid 1px;
   width: 100%;
+  color: #ecf0f1;
+  font-weight: bold;
+}
+
+.btn-warn{
+  background: #8F1D21;
+  border: rgb(99, 17, 19) solid 1px;
   color: #ecf0f1;
   font-weight: bold;
 }

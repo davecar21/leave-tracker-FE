@@ -2,7 +2,6 @@
   <h2>Leave Details: </h2>
   <h3>({{selectedDetails.date | date:'EEEE, MMMM d, y'}})</h3>
 </div>
-
 <div class="leave-details">
   <ng-container *ngFor="let leaveDetail of leaveDetails">
     <ng-container *ngIf="leaveDetail.leaveDate.getTime() == selectedDetails.date.getTime()">
