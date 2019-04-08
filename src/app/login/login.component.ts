@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../shared/services/auth/auth.service';
+import { AuthService } from '@AUTH/auth.service';
 import { Router } from '@angular/router';
 
-import { AuthGuardService } from '../shared/services/auth/auth-guard.service';
-import { TokenService } from '../shared/services/auth/token.service';
-
+import { AuthGuardService } from '@AUTH/auth-guard.service';
+import { EventEmitterService } from '@SERVICES/event-emitter.service';
+import { TokenService } from '@AUTH/token.service';
 
 
 @Component({
@@ -24,13 +24,15 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private authGuard: AuthGuardService,
-    private tokenService: TokenService) {
+    private tokenService: TokenService,
+    private eventEmitterService: EventEmitterService) {
     if (this.authGuard) {
       this.router.navigate(['/leave-form']);
     }
   }
 
   ngOnInit() {
+    this.eventEmitterService.emitDataToCalendar('');
   }
 
   submitLogin() {
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
         const data: any = result;
         localStorage.setItem('token', data.token);
         const tokenData = this.tokenService.decodeJWT(this.tokenService.getToken());
+        this.eventEmitterService.emitDataToCalendar(tokenData._id);
         if (tokenData.userType == 'teamLead') {
           this.router.navigate(['/tesdas']);
         }

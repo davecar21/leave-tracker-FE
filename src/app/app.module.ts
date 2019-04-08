@@ -9,13 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from '@SHARED/services/interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { AuthGuard } from '@AUTH/auth.guard';
 import { CalendarComponent } from './calendar/calendar.component';
+import { EventEmitterService } from '@SERVICES/event-emitter.service';
 import { LeaveFormComponent } from './leave-form/leave-form.component';
 import { LeaveDetailComponent } from './leave-detail/leave-detail.component';
-import { LeaveHighlightDirective } from './shared/directives/leave-highlight.directive';
+import { LeaveHighlightDirective } from '@SHARED/directives/leave-highlight.directive';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AuthGuard } from './shared/services/auth/auth.guard';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 const appRoutes: Routes = [
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    }
+    },
+    EventEmitterService
   ],
   bootstrap: [AppComponent]
 })

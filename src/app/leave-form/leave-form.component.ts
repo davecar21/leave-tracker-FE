@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TokenService } from '@AUTH/token.service';
-import { LeaveService } from '@SHARED/leave.service';
+import { LeaveService } from '@SHARED/services/leave.service';
+import { EventEmitterService } from '@SERVICES/event-emitter.service';
 
 @Component({
   selector: 'app-leave-form',
@@ -28,7 +29,8 @@ export class LeaveFormComponent implements OnInit {
 
   constructor(
     private tokenService: TokenService,
-    private leaveService: LeaveService
+    private leaveService: LeaveService,
+    private eventEmitterService: EventEmitterService
   ) {}
 
   ngOnInit() {}
@@ -47,5 +49,7 @@ export class LeaveFormComponent implements OnInit {
       }
     );
     // this.leaveForm.reset();
+
+    this.eventEmitterService.emitDataToCalendar(this.tokenService.decodeJWT(this.tokenService.getToken())._id);
   }
 }

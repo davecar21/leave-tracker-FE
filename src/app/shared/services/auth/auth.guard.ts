@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { AuthGuardService } from './auth-guard.service';
+import { AuthGuardService } from '@AUTH/auth-guard.service';
 
 @Injectable({
   providedIn: 'root'

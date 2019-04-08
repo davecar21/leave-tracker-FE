@@ -1,5 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { LeaveService } from '../shared/leave.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+import { EventEmitterService } from '@SERVICES/event-emitter.service';
+import { LeaveService } from '@SHARED/services/leave.service';
+import { TokenService } from '@AUTH/token.service';
 
 import * as moment from 'moment';
 
@@ -65,11 +68,37 @@ export class CalendarComponent implements OnInit {
   currDays: any = [{}];
   nextDays = [];
 
-  constructor(private leaveService: LeaveService) { }
+  constructor(
+    private leaveService: LeaveService,
+    private tokenService: TokenService,
+    private eventEmitterService: EventEmitterService) {
+  }
 
   ngOnInit() {
     this.initDays();
+
+    if (this.tokenService.getToken() == null) {
+      this.getLeave();
+    } else {
+      this.getLeaveById(this.tokenService.decodeJWT(this.tokenService.getToken())._id);
+    }
+
+    this.eventEmitterService.emittedDataToCalendar.subscribe(result => { this.getLeaveById(result); });
+  }
+
+  getLeave() {
     this.leaveService.getLeave().subscribe(
+      result => {
+        this.leaveDetails = result;
+      },
+      error => {
+        console.error('GetLeave:', error);
+      }
+    );
+  }
+
+  getLeaveById(id) {
+    this.leaveService.getLeaveById(id).subscribe(
       result => {
         this.leaveDetails = result;
       },

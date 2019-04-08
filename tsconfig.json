@@ -4,6 +4,7 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "paths": {
+      "@SERVICES/*": ["src/app/shared/services/*"],
       "@AUTH/*": ["src/app/shared/services/auth/*"],
       "@SHARED/*": ["src/app/shared/*"],
       "@ENV": ["src/environments/environment"]

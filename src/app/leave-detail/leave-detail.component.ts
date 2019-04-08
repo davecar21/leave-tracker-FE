@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { LeaveService } from '../shared/leave.service';
+import { LeaveService } from '@SHARED/services/leave.service';
 
 @Component({
   selector: 'app-leave-detail',
