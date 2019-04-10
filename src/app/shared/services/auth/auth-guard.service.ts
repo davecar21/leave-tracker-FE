@@ -5,18 +5,34 @@ import { TokenService } from './token.service';
   providedIn: 'root'
 })
 export class AuthGuardService {
-  constructor(private token: TokenService) { }
+  constructor(private tokenService: TokenService) { }
 
   isAuth() {
-    if (localStorage.getItem('token') && this.token.decodeJWT(this.token.getToken())) {
-      if (Date.now() / 1000 > this.token.decodeJWT(this.token.getToken()).exp) {
-        console.log('Auth Failed! Token is Expired!');
-        return false;
-      }
-      console.log('auth true', this.token.decodeJWT(this.token.getToken()));
+    if (this.checkToken() &&
+    this.tokenService.decodeJWT(this.tokenService.getToken()).userType == 'teamMember') {
+      console.log('auth true', this.tokenService.decodeJWT(this.tokenService.getToken()));
       return true;
     }
     console.log('auth false');
     return false;
+  }
+
+  isAdmin() {
+    if (this.checkToken() &&
+      this.tokenService.decodeJWT(this.tokenService.getToken()).userType == 'teamLead') {
+      console.log('auth true', this.tokenService.decodeJWT(this.tokenService.getToken()));
+      return true;
+    }
+    console.log('auth false');
+    return false;
+  }
+
+  checkToken() {
+    if (localStorage.getItem('token')
+      && this.tokenService.decodeJWT(this.tokenService.getToken())) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

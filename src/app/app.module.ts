@@ -10,6 +10,7 @@ import { InterceptorService } from '@SHARED/services/interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthGuard } from '@AUTH/auth.guard';
+import { AdminGuard } from '@AUTH/admin.guard';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EventEmitterService } from '@SERVICES/event-emitter.service';
 import { LeaveFormComponent } from './leave-form/leave-form.component';
@@ -18,10 +19,12 @@ import { LeaveHighlightDirective } from '@SHARED/directives/leave-highlight.dire
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'leave-form', component: LeaveFormComponent, canActivate: [AuthGuard] },
+  { path: 'leave-dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   // {
   //   path: 'heroes',
   //   component: HeroListComponent,
@@ -44,7 +47,8 @@ const appRoutes: Routes = [
     LeaveHighlightDirective,
     LoginComponent,
     PageNotFoundComponent,
-    NavBarComponent
+    NavBarComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

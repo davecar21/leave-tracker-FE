@@ -77,7 +77,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     this.initDays();
 
-    if (this.tokenService.getToken() == null) {
+    if (this.tokenService.getToken() == null || this.tokenService.decodeJWT(this.tokenService.getToken()).userType == 'teamLead') {
       this.getLeave();
     } else {
       this.getLeaveById(this.tokenService.decodeJWT(this.tokenService.getToken())._id);

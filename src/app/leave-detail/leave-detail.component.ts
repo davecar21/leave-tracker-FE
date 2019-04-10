@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { LeaveService } from '@SHARED/services/leave.service';
+import { TokenService } from '@AUTH/token.service';
 
 @Component({
   selector: 'app-leave-detail',
@@ -20,7 +21,9 @@ export class LeaveDetailComponent implements OnInit, OnChanges {
   @Input() selectedDetails;
   @Output() cancelVL = new EventEmitter();
 
-  constructor(private leaveService: LeaveService) {
+  constructor(
+    private leaveService: LeaveService,
+    private tokenService: TokenService) {
   }
 
   ngOnChanges() {
@@ -28,21 +31,34 @@ export class LeaveDetailComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.leaveService.getLeave().subscribe(result => {
-      this.leaveDetails = result;
-      // this.leaveDetails.forEach(data => {
-      //   data.leaveDate = new Date(data.leaveDate);
-      //   data.createdAt = new Date(data.createdAt);
-      // });
-
-      // this.leaveDetails = leaves.filter(data => {
-      //   return data.leaveDate.getTime() === this.dateNow.getTime();
-      // });
-
-      console.log('from leave Details', this.leaveDetails);
-      // console.log('from leave this.currentDate', this.dateNow);
-    });
+    if (this.tokenService.getToken() == null || this.tokenService.decodeJWT(this.tokenService.getToken()).userType == 'teamLead') {
+      this.getLeave();
+    } else {
+      this.getLeaveById(this.tokenService.decodeJWT(this.tokenService.getToken())._id);
+    }
     console.log('sel', this.selectedDetails);
+  }
+
+  getLeave() {
+    this.leaveService.getLeave().subscribe(
+      result => {
+        this.leaveDetails = result;
+      },
+      error => {
+        console.error('GetLeave:', error);
+      }
+    );
+  }
+
+  getLeaveById(id) {
+    this.leaveService.getLeaveById(id).subscribe(
+      result => {
+        this.leaveDetails = result;
+      },
+      error => {
+        console.error('GetLeave:', error);
+      }
+    );
   }
 
   initLeaveType(type) {

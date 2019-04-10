@@ -26,8 +26,11 @@ export class LoginComponent implements OnInit {
     private authGuard: AuthGuardService,
     private tokenService: TokenService,
     private eventEmitterService: EventEmitterService) {
-    if (this.authGuard) {
+    if (this.authGuard.isAuth()) {
       this.router.navigate(['/leave-form']);
+    }
+    if (this.authGuard.isAdmin()) {
+      this.router.navigate(['/leave-dashboard']);
     }
   }
 
@@ -42,8 +45,9 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', data.token);
         const tokenData = this.tokenService.decodeJWT(this.tokenService.getToken());
         this.eventEmitterService.emitDataToCalendar(tokenData._id);
+        console.log('TOKEN DATAAAAA', tokenData.userType);
         if (tokenData.userType == 'teamLead') {
-          this.router.navigate(['/tesdas']);
+          this.router.navigate(['/leave-dashboard']);
         }
         if (tokenData.userType == 'teamMember') {
           this.router.navigate(['/leave-form']);

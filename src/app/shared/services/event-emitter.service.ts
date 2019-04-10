@@ -9,7 +9,7 @@ export class EventEmitterService {
 
   constructor() { }
 
-  emitDataToCalendar(token){
+  emitDataToCalendar(token) {
     this.emittedDataToCalendar.emit(token);
   }
 }
